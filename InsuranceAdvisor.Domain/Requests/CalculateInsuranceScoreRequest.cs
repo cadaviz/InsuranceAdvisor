@@ -20,8 +20,8 @@ namespace InsuranceAdvisor.Domain.Requests
         [JsonPropertyName("marital_status")]
         public MaritalStatus MaritalStatus { get; set; }
 
-        [JsonPropertyName("risk_questions")]
-        public int[] RiskQuestions { get; set; } = Array.Empty<int>();
+        //[JsonPropertyName("risk_questions")]
+        //public int[] RiskQuestions { get; set; } = Array.Empty<int>();
 
         [JsonPropertyName("vehicle")]
         public VehicleInformationRequest? Vehicle { get; set; }

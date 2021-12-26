@@ -10,12 +10,13 @@ namespace InsuranceAdvisor.Domain.Domain
 
         public RiskPoints()
         {
-            _points = new Dictionary<InsuranceLine, int>();
-
-            _points.Add(InsuranceLine.Auto, default);
-            _points.Add(InsuranceLine.Disability, default);
-            _points.Add(InsuranceLine.Home, default);
-            _points.Add(InsuranceLine.Life, default);
+            _points = new Dictionary<InsuranceLine, int>
+            {
+                { InsuranceLine.Auto, default },
+                { InsuranceLine.Disability, default },
+                { InsuranceLine.Home, default },
+                { InsuranceLine.Life, default }
+            };
         }
 
         public void AddToAllInsuranceLines(int quantity)
