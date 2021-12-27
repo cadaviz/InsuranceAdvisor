@@ -20,7 +20,7 @@ The input `json` contains the following fields:
 | dependents | The number of dependents of the user | an integer equal or greater than 0 |
 | house | Contains information about users house | a nullable object |
 | house.ownership_status | Users house ownership status | enum ("owned" or "mortgaged") |
-| income | User income | an numeric equal or greater than 0 |
+| income | User income | a numeric equal or greater than 0 |
 | marital_status | User marital status | enum ("single" or "married") |
 | risk_questions | Answer 3 binary risk questions | bit (0 or 1) |
 | vehicle | Contains information about users vehicle  | a nullable object  |
