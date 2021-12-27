@@ -11,7 +11,7 @@ namespace InsuranceAdvisor.Domain.Requests.Validators
             var insuranceRequestLimits = insuranceRequestLimitsOptions.Value;
 
             RuleFor(x => x.Age)
-                .GreaterThan(insuranceRequestLimits.MinimumAge).WithMessage($"The age must be greater than {insuranceRequestLimits.MinimumAge}.")
+                .GreaterThanOrEqualTo(insuranceRequestLimits.MinimumAge).WithMessage($"The age must be greater than or equal to {insuranceRequestLimits.MinimumAge}.")
                 .LessThanOrEqualTo(insuranceRequestLimits.MaximumAge).WithMessage($"The age must be lower than or equal to {insuranceRequestLimits.MaximumAge}.");
 
             RuleFor(x => x.Dependents)

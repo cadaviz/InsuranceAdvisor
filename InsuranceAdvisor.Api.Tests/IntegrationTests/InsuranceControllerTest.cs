@@ -33,7 +33,7 @@ namespace InsuranceAdvisor.Api.Tests.IntegrationTests
         }
 
         [Fact]
-        public async Task BadRequest_RequestWithoutAgeParameter()
+        public async Task Ok_RequestWithoutAgeParameter()
         {
             // Arrange
             var request = CreatePostRequest(InsuranceBodyBuilder.WithoutAge());
@@ -42,7 +42,7 @@ namespace InsuranceAdvisor.Api.Tests.IntegrationTests
             var postResponse = await PostRequest(request);
 
             // Assert
-            Assert.Equal(HttpStatusCode.BadRequest, postResponse.StatusCode);
+            postResponse.EnsureSuccessStatusCode();
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace InsuranceAdvisor.Api.Tests.IntegrationTests
         public async Task BadRequest_RequestWithAgeParameterBelowLimit()
         {
             // Arrange
-            var request = CreatePostRequest(InsuranceBodyBuilder.WithAge(default));
+            var request = CreatePostRequest(InsuranceBodyBuilder.WithAge(-1));
 
             // Act
             var postResponse = await PostRequest(request);
