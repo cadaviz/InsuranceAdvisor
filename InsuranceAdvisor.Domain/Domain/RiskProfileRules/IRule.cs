@@ -7,6 +7,6 @@ namespace InsuranceAdvisor.Domain.Domain.Rules
     {
 
 
-        TResponse Validate(TTarget target);
+        TResponse Evaluate(TTarget target);
     }
 }

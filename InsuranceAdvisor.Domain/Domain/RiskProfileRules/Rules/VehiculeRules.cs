@@ -1,4 +1,5 @@
-﻿using InsuranceAdvisor.Domain.Domain.Entities;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Enums;
 using InsuranceAdvisor.Domain.Domain.Rules;
 
@@ -6,9 +7,9 @@ namespace InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules
 {
     internal sealed class VehiculeRules : RiskProfileRuleBase
     {
-        public VehiculeRules(RiskPoints riskPoints) : base(riskPoints) { }
+        public VehiculeRules(RiskScore riskPoints, RiskProfileRulesConfiguration rulesConfiguration) : base(riskPoints, rulesConfiguration) { }
 
-        public override RiskPoints Validate(RiskProfile riskProfile)
+        public override RiskScore Evaluate(RiskProfile riskProfile)
         {
             if (riskProfile.HasVehicle && riskProfile.Vehicle.Year >= GetHighRiskYearLimitForProducedVehicle())
             {
@@ -22,9 +23,7 @@ namespace InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules
 
         private int GetHighRiskYearLimitForProducedVehicle()
         {
-            int _highRiskYearsForVehicle = 5;
-
-            return DateTime.Now.Year - _highRiskYearsForVehicle;
+            return DateTime.Now.Year - _rulesConfiguration.HighRiskYearsForVehicle;
         }
     }
 }

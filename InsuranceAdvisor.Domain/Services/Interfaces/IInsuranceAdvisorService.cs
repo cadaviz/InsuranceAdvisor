@@ -1,9 +1,10 @@
 ﻿using InsuranceAdvisor.Domain.Requests;
+using InsuranceAdvisor.Domain.Responses;
 
 namespace InsuranceAdvisor.Domain.Services.Interfaces
 {
     public interface IInsuranceAdvisorService
     {
-        void Do(CalculateInsuranceScoreRequest request);
+        AdviseInsurancePlanResponse AdviseInsurancePlan(AdviseInsurancePlanRequest request);
     }
 }

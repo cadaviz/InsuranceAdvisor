@@ -1,4 +1,5 @@
-﻿using InsuranceAdvisor.Domain.Domain;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Enums;
 using InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules;
 using InsuranceAdvisor.Domain.Tests.Utilities;
@@ -14,10 +15,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.DefaultProfile();
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);
@@ -32,10 +33,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithoutVehicle();
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(3, result.Points.Count);
@@ -50,10 +51,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithoutHouse();
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(3, result.Points.Count);
@@ -68,10 +69,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithoutIncome();
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(3, result.Points.Count);
@@ -86,10 +87,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithoutIncomeHomeAndVehicle();
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(1, result.Points.Count);
@@ -104,10 +105,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithAge(61);
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(2, result.Points.Count);
@@ -122,10 +123,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithAge(30);
-            var rule = new IneligibilityRules(new RiskPoints());
+            var rule = new IneligibilityRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);

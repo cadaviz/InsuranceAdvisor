@@ -1,18 +1,18 @@
-﻿using InsuranceAdvisor.Domain.Domain.Entities;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Rules;
 
 namespace InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules
 {
     internal sealed class IncomeRules : RiskProfileRuleBase
     {
-        public IncomeRules(RiskPoints riskPoints) : base(riskPoints) { }
+        public IncomeRules(RiskScore riskPoints, RiskProfileRulesConfiguration rulesConfiguration) : base(riskPoints, rulesConfiguration) { }
 
-        public override RiskPoints Validate(RiskProfile riskProfile)
+        public override RiskScore Evaluate(RiskProfile riskProfile)
         {
-            decimal _lowRiskIncome = 200000m;
             int riskPointsToRemove = default;
 
-            if (riskProfile.Income > _lowRiskIncome)
+            if (riskProfile.Income > _rulesConfiguration.LowRiskIncome)
                 riskPointsToRemove = 1;
 
             _riskPoints.RemoveFromAllInsuranceLines(riskPointsToRemove);

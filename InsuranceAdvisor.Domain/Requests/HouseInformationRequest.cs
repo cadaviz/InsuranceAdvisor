@@ -6,6 +6,6 @@ namespace InsuranceAdvisor.Domain.Requests
     public class HouseInformationRequest
     {
         [JsonPropertyName("ownership_status")]
-        public OwnershipStatus OwnershipStatus { get; set; }
+        public OwnershipStatus? OwnershipStatus { get; set; }
     }
 }

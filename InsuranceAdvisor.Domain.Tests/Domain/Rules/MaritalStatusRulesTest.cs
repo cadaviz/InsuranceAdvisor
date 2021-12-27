@@ -1,4 +1,6 @@
-﻿using InsuranceAdvisor.Domain.Domain;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Enums;
 using InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules;
 using InsuranceAdvisor.Domain.Tests.Utilities;
@@ -15,13 +17,13 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithMaritalStatus(MaritalStatus.Married);
 
-            var riskPoints = new RiskPoints();
+            var riskPoints = new RiskScore();
             riskPoints.AddToAllInsuranceLines(2);
 
-            var rule = new MaritalStatusRules(riskPoints);
+            var rule = new MaritalStatusRules(riskPoints, new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);
@@ -37,13 +39,13 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithMaritalStatus(MaritalStatus.Single);
 
-            var riskPoints = new RiskPoints();
+            var riskPoints = new RiskScore();
             riskPoints.AddToAllInsuranceLines(2);
 
-            var rule = new MaritalStatusRules(riskPoints);
+            var rule = new MaritalStatusRules(riskPoints, new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);

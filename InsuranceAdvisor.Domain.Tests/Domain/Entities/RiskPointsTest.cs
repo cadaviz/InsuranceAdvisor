@@ -1,4 +1,4 @@
-﻿using InsuranceAdvisor.Domain.Domain;
+﻿using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -8,10 +8,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Entities
     [TestClass]
     public class RiskPointsTest
     {
-        private readonly RiskPoints _riskPoints;
+        private readonly RiskScore _riskPoints;
         public RiskPointsTest()
         {
-            _riskPoints = new RiskPoints();
+            _riskPoints = new RiskScore();
         }
 
         [TestMethod]

@@ -1,6 +1,6 @@
 ﻿namespace InsuranceAdvisor.Domain.Domain.Enums
 {
-    public enum RiskCategory
+    public enum InsurancePlan
     {
         Ineligible,
         Economic,
