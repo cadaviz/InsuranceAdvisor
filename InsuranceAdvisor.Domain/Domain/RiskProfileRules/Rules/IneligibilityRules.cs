@@ -1,4 +1,5 @@
-﻿using InsuranceAdvisor.Domain.Domain.Entities;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Enums;
 using InsuranceAdvisor.Domain.Domain.Rules;
 
@@ -6,9 +7,9 @@ namespace InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules
 {
     internal sealed class IneligibilityRules : RiskProfileRuleBase
     {
-        internal IneligibilityRules(RiskPoints riskPoints) : base(riskPoints) { }
+        internal IneligibilityRules(RiskScore riskPoints, RiskProfileRulesConfiguration rulesConfiguration) : base(riskPoints, rulesConfiguration) { }
 
-        public override RiskPoints Validate(RiskProfile riskProfile)
+        public override RiskScore Evaluate(RiskProfile riskProfile)
         {
             VerifyUserHasIncome(riskProfile);
             VerifyUserHasVehicle(riskProfile);
@@ -38,13 +39,10 @@ namespace InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules
 
         private void VerifyUserAgeLimit(RiskProfile riskProfile)
         {
-            //TODO: colocar em um arquvio de config
-            int _ageLimitForDisabilityInsurance = 60;
-            if (riskProfile.Age > _ageLimitForDisabilityInsurance)
+            if (riskProfile.Age > _rulesConfiguration.AgeLimitForDisabilityInsurance)
                 _riskPoints.TurnInsuranceLineIneligible(InsuranceLine.Disability);
 
-            int _ageLimitForLifeInsurance = 60;
-            if (riskProfile.Age > _ageLimitForLifeInsurance)
+            if (riskProfile.Age > _rulesConfiguration.AgeLimitForLifeInsurance)
                 _riskPoints.TurnInsuranceLineIneligible(InsuranceLine.Life);
         }
     }

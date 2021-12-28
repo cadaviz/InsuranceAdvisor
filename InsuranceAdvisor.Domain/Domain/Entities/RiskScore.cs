@@ -1,21 +1,16 @@
 ﻿using InsuranceAdvisor.Domain.Domain.Enums;
+using InsuranceAdvisor.Domain.Helpers;
 
-namespace InsuranceAdvisor.Domain.Domain
+namespace InsuranceAdvisor.Domain.Domain.Entities
 {
-    internal class RiskPoints
+    internal class RiskScore
     {
         private readonly Dictionary<InsuranceLine, int> _points;
-
         public IReadOnlyDictionary<InsuranceLine, int> Points => _points;
 
-        public RiskPoints()
+        public RiskScore()
         {
-            _points = new Dictionary<InsuranceLine, int>();
-
-            _points.Add(InsuranceLine.Auto, default);
-            _points.Add(InsuranceLine.Disability, default);
-            _points.Add(InsuranceLine.Home, default);
-            _points.Add(InsuranceLine.Life, default);
+            _points = EnumHelper.GetEnumList<InsuranceLine>().ToDictionary(x => x, y => default(int));
         }
 
         public void AddToAllInsuranceLines(int quantity)
@@ -30,17 +25,28 @@ namespace InsuranceAdvisor.Domain.Domain
 
         public void AddToInsuranceLine(InsuranceLine insuranceLine, int quantity)
         {
+            if (!IsEligible(insuranceLine))
+                return;
+
             _points[insuranceLine] += quantity;
         }
 
         public void RemoveFromInsuranceLine(InsuranceLine insuranceLine, int quantity)
         {
+            if (!IsEligible(insuranceLine))
+                return;
+
             _points[insuranceLine] -= quantity;
         }
 
         public void TurnInsuranceLineIneligible(InsuranceLine insuranceLine)
         {
             _points.Remove(insuranceLine);
+        }
+
+        public bool IsEligible(InsuranceLine insuranceLine)
+        {
+            return _points.ContainsKey(insuranceLine);
         }
 
         private void UpdateAllInsuranceLinesQuantity(int quantity)

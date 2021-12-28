@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace InsuranceAdvisor.Domain.Requests
 {
-    public class CalculateInsuranceScoreRequest
+    public class AdviseInsurancePlanRequest 
     {
         [JsonPropertyName("age")]
         public int Age { get; set; }
@@ -18,12 +18,13 @@ namespace InsuranceAdvisor.Domain.Requests
         public decimal Income { get; set; }
 
         [JsonPropertyName("marital_status")]
-        public MaritalStatus MaritalStatus { get; set; }
+        public MaritalStatus? MaritalStatus { get; set; }
 
         [JsonPropertyName("risk_questions")]
         public int[] RiskQuestions { get; set; } = Array.Empty<int>();
 
         [JsonPropertyName("vehicle")]
         public VehicleInformationRequest? Vehicle { get; set; }
+
     }
 }

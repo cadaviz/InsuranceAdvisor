@@ -1,4 +1,5 @@
-﻿using InsuranceAdvisor.Domain.Domain;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.Enums;
 using InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules;
 using InsuranceAdvisor.Domain.Tests.Utilities;
@@ -14,10 +15,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithRiskQuestions(new bool[] { true, true, true });
-            var rule = new RiskQuestionsRules(new RiskPoints());
+            var rule = new RiskQuestionsRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);
@@ -32,10 +33,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithRiskQuestions(new bool[] { false, false, false });
-            var rule = new RiskQuestionsRules(new RiskPoints());
+            var rule = new RiskQuestionsRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);
@@ -50,10 +51,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
         {
             // Arrange
             var riskProfile = RiskProfileBuilder.WithRiskQuestions(new bool[] { true, false, true });
-            var rule = new RiskQuestionsRules(new RiskPoints());
+            var rule = new RiskQuestionsRules(new RiskScore(), new RiskProfileRulesConfiguration());
 
             // Act
-            var result = rule.Validate(riskProfile);
+            var result = rule.Evaluate(riskProfile);
 
             // Assert
             Assert.AreEqual(4, result.Points.Count);

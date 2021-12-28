@@ -1,33 +1,34 @@
-﻿using InsuranceAdvisor.Domain.Domain.Entities;
+﻿using InsuranceAdvisor.Domain.Configurations;
+using InsuranceAdvisor.Domain.Domain.Entities;
 using InsuranceAdvisor.Domain.Domain.RiskProfileRules.Rules;
 
 namespace InsuranceAdvisor.Domain.Domain.Rules
 {
     internal class RiskProfileRules
     {
-        private readonly List<IRule<RiskProfile, RiskPoints>> _rules;
-        private readonly RiskPoints _points;
+        private readonly List<IRule<RiskProfile, RiskScore>> _rules;
+        private readonly RiskScore _points;
 
-        public RiskProfileRules()
+        public RiskProfileRules(RiskProfileRulesConfiguration rulesConfiguration)
         {
-            _points = new RiskPoints();
+            _points = new RiskScore();
 
-            _rules = new List<IRule<RiskProfile, RiskPoints>>
+            _rules = new List<IRule<RiskProfile, RiskScore>>
             {
-                new IneligibilityRules(_points),
-                new RiskQuestionsRules(_points),
-                new AgeRules(_points),
-                new IncomeRules(_points),
-                new HouseRules(_points),
-                new DependentsRules(_points),
-                new MaritalStatusRules(_points),
-                new VehiculeRules(_points),
+                new IneligibilityRules(_points, rulesConfiguration),
+                new RiskQuestionsRules(_points, rulesConfiguration),
+                new AgeRules(_points, rulesConfiguration),
+                new IncomeRules(_points, rulesConfiguration),
+                new HouseRules(_points, rulesConfiguration),
+                new DependentsRules(_points, rulesConfiguration),
+                new MaritalStatusRules(_points, rulesConfiguration),
+                new VehiculeRules(_points, rulesConfiguration),
             };
         }
 
-        public RiskPoints Validate(RiskProfile riskProfile)
+        public RiskScore Evaluate(RiskProfile riskProfile)
         {
-            _rules.ForEach(rule => rule.Validate(riskProfile));
+            _rules.ForEach(rule => rule.Evaluate(riskProfile));
 
             return _points;
         }

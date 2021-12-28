@@ -15,12 +15,10 @@ namespace InsuranceAdvisor.Api.Controllers
             _insuranceAdvisorService = insuranceAdvisorService;
         }
 
-        //TODO: melhorar esse nome
-        [HttpPost(Name = "CalculateInsuranceScore")]
-        public IActionResult CalculateInsuranceScore(CalculateInsuranceScoreRequest request)
+        [HttpPost(Name = "AdviseInsurancePlan")]
+        public IActionResult AdviseInsurancePlan(AdviseInsurancePlanRequest request)
         {
-            _insuranceAdvisorService.Do(request);
-            return Ok();
+            return Ok(_insuranceAdvisorService.AdviseInsurancePlan(request));
         }
     }
 }
