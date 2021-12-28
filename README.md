@@ -9,7 +9,7 @@ Asking personal and risk-related questions and gathering some information about 
 
 - This application has a post webapi post endpoint, that receive a json payload as  [input](#Input).
 - The insurance plan will be assessed and returned as json in [output](#Output).
-- This application has a swagger that can be accessed [here](https://localhost:7272/swagger/index.html), once started.
+- This application has a swagger that can be accessed [here](https://localhost:8080/swagger/index.html), once started.
 
 ### Input
 The input `json` contains the following fields:
@@ -40,3 +40,39 @@ Like this example:
 ```
 
 ### Output
+The application will return the following JSON payload:
+
+| Nome | Meaning | Value |
+| ------ | ------ | ------ |
+| auto | The insurance plan for vehicle | enum ("ineligible", "economic", "regular", "responsible") |
+| disability | The insurance plan for disability | enum ("ineligible", "economic", "regular", "responsible") |
+| home |  The insurance plan for home | enum ("ineligible", "economic", "regular", "responsible") |
+| life | The insurance plan for life | enum ("ineligible", "economic", "regular", "responsible") |
+
+Like this example:
+```json
+{
+    "auto": "regular",
+    "disability": "ineligible",
+    "home": "economic",
+    "life": "regular"
+}
+```
+
+## How it runs?
+**Insurance Advisor** was developed in .Net 6.0 and can run into Docker containers.
+
+To build a Docker image, open the project root folder (the one that has the `Dockerfile` file) and run the following command in the terminal:
+
+```sh
+docker build -t insurance-advisor .
+```
+
+This way you will create an image of **Insurance Advisor** and get all necessary dependencies.
+
+To run the application, run the following command in the terminal, in the same folder as the previous command:
+```sh
+docker run -d -p 8080:80 insurance-advisor
+```
+
+The application will respond in `http://localhost:8080/Insurance`.
