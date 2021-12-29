@@ -16,10 +16,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithDependents(0);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new DependentsRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new DependentsRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);
@@ -38,10 +38,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithDependents(2);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new DependentsRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new DependentsRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);
@@ -60,10 +60,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithDependents(5);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new DependentsRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new DependentsRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);

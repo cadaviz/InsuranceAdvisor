@@ -16,10 +16,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithHouse(OwnershipStatus.Owned);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new HouseRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new HouseRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);
@@ -38,10 +38,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithHouse(OwnershipStatus.Mortgaged);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new HouseRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new HouseRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);
