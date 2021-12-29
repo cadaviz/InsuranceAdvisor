@@ -17,10 +17,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithVehicleProducedIn(DateTime.Now.Year);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new VehiculeRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new VehiculeRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);
@@ -39,10 +39,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Rules
             // Arrange
             var riskProfile = RiskProfileBuilder.WithVehicleProducedIn(DateTime.Now.Year - 10);
 
-            var riskPoints = new RiskScore();
-            riskPoints.AddToAllInsuranceLines(2);
+            var riskScore = new RiskScore();
+            riskScore.AddToAllInsuranceLines(2);
 
-            var rule = new VehiculeRules(riskPoints, new RiskProfileRulesConfiguration());
+            var rule = new VehiculeRules(riskScore, new RiskProfileRulesConfiguration());
 
             // Act
             var result = rule.Evaluate(riskProfile);

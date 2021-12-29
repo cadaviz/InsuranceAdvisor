@@ -8,10 +8,10 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Entities
     [TestClass]
     public class RiskPointsTest
     {
-        private readonly RiskScore _riskPoints;
+        private readonly RiskScore _riskScore;
         public RiskPointsTest()
         {
-            _riskPoints = new RiskScore();
+            _riskScore = new RiskScore();
         }
 
         [TestMethod]
@@ -20,63 +20,63 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Entities
             // Arrange
 
             // Act
-            _riskPoints.AddToAllInsuranceLines(3);
+            _riskScore.AddToAllInsuranceLines(3);
 
             // Assert
-            Assert.AreEqual(3, _riskPoints.Points[InsuranceLine.Auto]);
-            Assert.AreEqual(3, _riskPoints.Points[InsuranceLine.Disability]);
-            Assert.AreEqual(3, _riskPoints.Points[InsuranceLine.Home]);
-            Assert.AreEqual(3, _riskPoints.Points[InsuranceLine.Life]);
+            Assert.AreEqual(3, _riskScore.Points[InsuranceLine.Auto]);
+            Assert.AreEqual(3, _riskScore.Points[InsuranceLine.Disability]);
+            Assert.AreEqual(3, _riskScore.Points[InsuranceLine.Home]);
+            Assert.AreEqual(3, _riskScore.Points[InsuranceLine.Life]);
         }
 
         [TestMethod]
         public void RemovePointsFromAllInsuranceLines()
         {
             // Arrange
-            _riskPoints.AddToAllInsuranceLines(4);
+            _riskScore.AddToAllInsuranceLines(4);
 
             // Act
-            _riskPoints.RemoveFromAllInsuranceLines(2);
+            _riskScore.RemoveFromAllInsuranceLines(2);
 
             // Assert
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Auto]);
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Disability]);
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Home]);
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Life]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Auto]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Disability]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Home]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Life]);
         }
 
         [TestMethod]
         public void AddPointsToInsuranceLine()
         {
             // Arrange
-            _riskPoints.AddToAllInsuranceLines(2);
+            _riskScore.AddToAllInsuranceLines(2);
 
             // Act
-            _riskPoints.AddToInsuranceLine(InsuranceLine.Disability, 2);
-            _riskPoints.AddToInsuranceLine(InsuranceLine.Life, 1);
+            _riskScore.AddToInsuranceLine(InsuranceLine.Disability, 2);
+            _riskScore.AddToInsuranceLine(InsuranceLine.Life, 1);
 
             // Assert
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Auto]);
-            Assert.AreEqual(4, _riskPoints.Points[InsuranceLine.Disability]);
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Home]);
-            Assert.AreEqual(3, _riskPoints.Points[InsuranceLine.Life]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Auto]);
+            Assert.AreEqual(4, _riskScore.Points[InsuranceLine.Disability]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Home]);
+            Assert.AreEqual(3, _riskScore.Points[InsuranceLine.Life]);
         }
 
         [TestMethod]
         public void RemovePointsFromInsuranceLine()
         {
             // Arrange
-            _riskPoints.AddToAllInsuranceLines(4);
+            _riskScore.AddToAllInsuranceLines(4);
 
             // Act
-            _riskPoints.RemoveFromInsuranceLine(InsuranceLine.Disability, 2);
-            _riskPoints.RemoveFromInsuranceLine(InsuranceLine.Life, 1);
+            _riskScore.RemoveFromInsuranceLine(InsuranceLine.Disability, 2);
+            _riskScore.RemoveFromInsuranceLine(InsuranceLine.Life, 1);
 
             // Assert
-            Assert.AreEqual(4, _riskPoints.Points[InsuranceLine.Auto]);
-            Assert.AreEqual(2, _riskPoints.Points[InsuranceLine.Disability]);
-            Assert.AreEqual(4, _riskPoints.Points[InsuranceLine.Home]);
-            Assert.AreEqual(3, _riskPoints.Points[InsuranceLine.Life]);
+            Assert.AreEqual(4, _riskScore.Points[InsuranceLine.Auto]);
+            Assert.AreEqual(2, _riskScore.Points[InsuranceLine.Disability]);
+            Assert.AreEqual(4, _riskScore.Points[InsuranceLine.Home]);
+            Assert.AreEqual(3, _riskScore.Points[InsuranceLine.Life]);
         }
 
         [TestMethod]
@@ -85,11 +85,11 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Entities
             // Arrange
 
             // Act
-            _riskPoints.TurnInsuranceLineIneligible(InsuranceLine.Disability);
+            _riskScore.TurnInsuranceLineIneligible(InsuranceLine.Disability);
 
             // Assert
-            Assert.AreEqual(3, _riskPoints.Points.Count);
-            Assert.IsFalse(_riskPoints.Points.ContainsKey(InsuranceLine.Disability));
+            Assert.AreEqual(3, _riskScore.Points.Count);
+            Assert.IsFalse(_riskScore.Points.ContainsKey(InsuranceLine.Disability));
         }
 
         [TestMethod]
@@ -98,25 +98,25 @@ namespace InsuranceAdvisor.Domain.Tests.Domain.Entities
             // Arrange
 
             // Act
-            _riskPoints.TurnInsuranceLineIneligible(InsuranceLine.Disability);
-            _riskPoints.TurnInsuranceLineIneligible(InsuranceLine.Disability);
+            _riskScore.TurnInsuranceLineIneligible(InsuranceLine.Disability);
+            _riskScore.TurnInsuranceLineIneligible(InsuranceLine.Disability);
 
             // Assert
-            Assert.AreEqual(3, _riskPoints.Points.Count);
-            Assert.IsFalse(_riskPoints.Points.ContainsKey(InsuranceLine.Disability));
+            Assert.AreEqual(3, _riskScore.Points.Count);
+            Assert.IsFalse(_riskScore.Points.ContainsKey(InsuranceLine.Disability));
         }
 
         [TestMethod]
         public void PointsCannotBeUpgradedOutsideClass()
         {
             // Arrange
-            var initialValue = _riskPoints.Points[0];
+            var initialValue = _riskScore.Points[0];
 
             // Act
-            _riskPoints.Points.ToDictionary(x => x.Key, x=> x.Value)[0] += 1;
+            _riskScore.Points.ToDictionary(x => x.Key, x=> x.Value)[0] += 1;
 
             // Assert
-            Assert.AreEqual(initialValue, _riskPoints.Points[0]);
+            Assert.AreEqual(initialValue, _riskScore.Points[0]);
         }
     }
 }
