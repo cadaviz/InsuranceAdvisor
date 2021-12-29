@@ -6,10 +6,11 @@ using System.Linq;
 namespace InsuranceAdvisor.Domain.Tests.Domain.Entities
 {
     [TestClass]
-    public class RiskPointsTest
+    public class RiskScoreTest
     {
         private readonly RiskScore _riskScore;
-        public RiskPointsTest()
+
+        public RiskScoreTest()
         {
             _riskScore = new RiskScore();
         }
